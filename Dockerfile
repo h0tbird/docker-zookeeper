@@ -17,7 +17,14 @@ RUN wget -q -O - http://apache.mirrors.pair.com/zookeeper/zookeeper-3.4.6/zookee
 ADD rootfs /
 
 #------------------------------------------------------------------------------
-# Entrypoint:
+# Persistent data:
 #------------------------------------------------------------------------------
 
+VOLUME /data
+
+#------------------------------------------------------------------------------
+# Expose ports and entrypoint:
+#------------------------------------------------------------------------------
+
+EXPOSE 2181 2888 3888
 ENTRYPOINT ["/init", "/opt/zookeeper-3.4.6/bin/zkServer.sh", "start-foreground"]
