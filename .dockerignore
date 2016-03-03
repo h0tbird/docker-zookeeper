@@ -2,5 +2,6 @@ bin
 .git
 .gitignore
 .dockerignore
+.travis.yml
 README.md
 *.swp
