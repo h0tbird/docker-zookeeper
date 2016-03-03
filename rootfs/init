@@ -7,7 +7,7 @@
 CONFIG_FILE='/opt/zookeeper/conf/zoo.cfg'
 
 # Data dir:
-: ${ZK_DATA_DIR:-/data} && \
+: ${ZK_DATA_DIR:-/var/lib/zookeeper} && \
 echo "dataDir=${ZK_DATA_DIR}" > ${CONFIG_FILE}
 
 # Client port:
@@ -33,4 +33,5 @@ echo "clientPortAddress=${ZK_CLIENT_PORT_ADDRESS}" >> ${CONFIG_FILE}
 # Run:
 #------------------------------------------------------------------------------
 
+cat ${CONFIG_FILE}
 exec /opt/zookeeper/bin/zkServer.sh start-foreground

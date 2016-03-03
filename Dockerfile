@@ -21,7 +21,7 @@ RUN yum update -y && yum clean all
 RUN yum install -y java-1.7.0-openjdk-headless wget tar && yum clean all
 RUN wget -q -O - ${URL}/zookeeper-${VERSION}/zookeeper-${VERSION}.tar.gz | \
     tar -xzf - -C /opt && mv /opt/zookeeper-${VERSION} /opt/zookeeper \
-    && chown -R root:root /opt/zookeeper && mkdir /data
+    && chown -R root:root /opt/zookeeper && mkdir /var/lib/zookeeper
 
 #-----------------------------------------------------------------------------
 # Populate root file system:
