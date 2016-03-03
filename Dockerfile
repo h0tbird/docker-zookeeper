@@ -5,6 +5,13 @@
 FROM centos:7
 MAINTAINER Marc Villacorta Morera <marc.villacorta@gmail.com>
 
+#-----------------------------------------------------------------------------
+# Environment variables:
+#-----------------------------------------------------------------------------
+
+ENV URL="http://apache.mirrors.pair.com/zookeeper" \
+    VERSION="3.4.8"
+
 #------------------------------------------------------------------------------
 # Install:
 #------------------------------------------------------------------------------
@@ -12,19 +19,19 @@ MAINTAINER Marc Villacorta Morera <marc.villacorta@gmail.com>
 RUN rpm --import http://mirror.centos.org/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7
 RUN yum update -y && yum clean all
 RUN yum install -y java-1.7.0-openjdk-headless wget tar && yum clean all
-RUN wget -q -O - http://apache.mirrors.pair.com/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz | \
-    tar -xzf - -C /opt && chown -R root:root /opt/zookeeper*
+RUN wget -q -O - ${URL}/zookeeper-${VERSION}/zookeeper-${VERSION}.tar.gz | \
+    tar -xzf - -C /opt && mv /opt/zookeeper-${VERSION} /opt/zookeeper \
+    && chown -R root:root /opt/zookeeper && mkdir /data
+
+#-----------------------------------------------------------------------------
+# Populate root file system:
+#-----------------------------------------------------------------------------
+
 ADD rootfs /
-
-#------------------------------------------------------------------------------
-# Persistent data:
-#------------------------------------------------------------------------------
-
-VOLUME /data
 
 #------------------------------------------------------------------------------
 # Expose ports and entrypoint:
 #------------------------------------------------------------------------------
 
 EXPOSE 2181 2888 3888
-ENTRYPOINT ["/init", "/opt/zookeeper-3.4.6/bin/zkServer.sh", "start-foreground"]
+ENTRYPOINT ["/init"]

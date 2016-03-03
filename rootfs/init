@@ -4,36 +4,33 @@
 # Configure the service:
 #------------------------------------------------------------------------------
 
-echo '[Init] Configuring the service...'
+CONFIG_FILE='/opt/zookeeper/conf/zoo.cfg'
 
-# Setup this server ID:
-echo "[Init] Configuring this server ID as '${ZK_SERVER_NUMBER}'"
-[ "${ZK_SERVER_NUMBER}" ] && {
-  [ -d /data ] || mkdir /data
-  echo "${ZK_SERVER_NUMBER}" > /data/myid
-}
+# Data dir:
+: ${ZK_DATA_DIR:-/data} && \
+echo "dataDir=${ZK_DATA_DIR}" > ${CONFIG_FILE}
 
-# Setup the full peers server list:
+# Client port:
+: ${ZK_CLIENT_PORT:-2181} && \
+echo "clientPort=${ZK_CLIENT_PORT}" >> ${CONFIG_FILE}
+
+# Client port address:
+: ${ZK_CLIENT_PORT_ADDRESS:-0.0.0.0} && \
+echo "clientPortAddress=${ZK_CLIENT_PORT_ADDRESS}" >> ${CONFIG_FILE}
+
+# Peers server list:
 [ "${ZK_SERVERS}" ] && {
 
-  OIFS=${IFS}; IFS=','; ID=1
-  read -ra SERVERS <<< "${ZK_SERVERS}"
+  ID=1; IFS=',' read -ra SERVERS <<< "${ZK_SERVERS}"
 
-  for server in "${SERVERS[@]}"; do
-    echo "[Init] Configuring '${server}:2888:3888' peer...'"
-    echo "server.${ID}=${server}:2888:3888" >> /opt/zookeeper-3.4.6/conf/zoo.cfg
+  for i in "${SERVERS[@]}"; do
+    echo "server.${ID}=${i}:2888:3888" >> ${CONFIG_FILE}
     ID=$((ID + 1))
   done
-
-  IFS=${OIFS}
 }
-
-# Disable JMX:
-export JMXDISABLE=true
 
 #------------------------------------------------------------------------------
 # Run:
 #------------------------------------------------------------------------------
 
-echo "[Init] Executing: $*"
-exec $*
+exec /opt/zookeeper/bin/zkServer.sh start-foreground
