@@ -39,10 +39,12 @@ echo "clientPortAddress=${ZK_CLIENT_PORT_ADDRESS}" >> ${CONFIG_FILE}
 
   ID=1; IFS=',' read -ra SERVERS <<< "${ZK_SERVERS}"
 
-  for i in "${SERVERS[@]}"; do
-    echo "server.${ID}=${i}:2888:3888" >> ${CONFIG_FILE}
-    ID=$((ID + 1))
-  done
+  [ ${#SERVERS[@]} -gt 1 ] && {
+    for i in "${SERVERS[@]}"; do
+      echo "server.${ID}=${i}:2888:3888" >> ${CONFIG_FILE}
+      ID=$((ID + 1))
+    done
+  }
 }
 
 #------------------------------------------------------------------------------
