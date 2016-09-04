@@ -1,6 +1,6 @@
 # docker-zookeeper
 
-[![Build Status](https://travis-ci.org/h0tbird/docker-zookeeper.svg?branch=master)](https://travis-ci.org/h0tbird/docker-zookeeper)
+[![Build Status](https://travis-ci.org/katosys/docker-zookeeper.svg?branch=master)](https://travis-ci.org/katosys/docker-zookeeper)
 
 Containerized zookeeper server.
 
@@ -16,5 +16,5 @@ docker run -it --rm \
 --env ZK_SYNC_LIMIT=2 \
 --env ZK_SERVERS=zk-1,zk-2,zk-3 \
 --env JMXDISABLE=true \
-h0tbird/zookeeper:latest
+katosys/zookeeper:latest
 ```
