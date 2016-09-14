@@ -10,7 +10,7 @@ MAINTAINER Marc Villacorta Morera <marc.villacorta@gmail.com>
 #-----------------------------------------------------------------------------
 
 ENV URL="http://apache.mirrors.pair.com/zookeeper" \
-    VERSION="3.4.8"
+    VERSION="3.4.9"
 
 #------------------------------------------------------------------------------
 # Install:

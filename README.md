@@ -16,5 +16,5 @@ docker run -it --rm \
 --env ZK_SYNC_LIMIT=2 \
 --env ZK_SERVERS=zk-1,zk-2,zk-3 \
 --env JMXDISABLE=true \
-katosys/zookeeper:v3.4.8-3
+katosys/zookeeper:v3.4.9-1
 ```
