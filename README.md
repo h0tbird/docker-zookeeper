@@ -1,6 +1,6 @@
-# docker-zookeeper
+# zookeeper
 
-[![Build Status](https://travis-ci.org/katosys/docker-zookeeper.svg?branch=master)](https://travis-ci.org/katosys/docker-zookeeper)
+[![Build Status](https://travis-ci.org/katosys/zookeeper.svg?branch=master)](https://travis-ci.org/katosys/zookeeper)
 
 Containerized zookeeper server.
 
